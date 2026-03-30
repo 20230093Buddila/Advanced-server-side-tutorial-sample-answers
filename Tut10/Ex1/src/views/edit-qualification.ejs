@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <div class="card">
+        <h2>Edit Qualification</h2>
+        
+        <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-error"><%= error %></div>
+        <% } %>
+        
+        <form action="/qualifications/edit/<%= qualification.id %>" method="POST">
+            <div class="form-group">
+                <label for="q_type">Type</label>
+                <select id="q_type" name="q_type" required>
+                    <option value="degree" <%= qualification.q_type === 'degree' ? 'selected' : '' %>>Degree</option>
+                    <option value="certification" <%= qualification.q_type === 'certification' ? 'selected' : '' %>>Certification</option>
+                    <option value="licence" <%= qualification.q_type === 'licence' ? 'selected' : '' %>>Licence</option>
+                    <option value="course" <%= qualification.q_type === 'course' ? 'selected' : '' %>>Course</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<%= qualification.title %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" name="organization" value="<%= qualification.organization || '' %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="completion_date">Completion Date</label>
+                <input type="date" id="completion_date" name="completion_date" value="<%= qualification.completion_date ? new Date(qualification.completion_date).toISOString().split('T')[0] : '' %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="url">Certificate URL</label>
+                <input type="url" id="url" name="url" value="<%= qualification.url || '' %>">
+            </div>
+            
+            <button type="submit" class="btn">Update Qualification</button>
+        </form>
+        
+        <p class="link-text">
+            <a href="/qualifications">← Back to Qualifications</a>
+        </p>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
